@@ -51,6 +51,14 @@ L’application est développée avec :
 
 #### - Démarrer le serveur local Laravel
    php artisan serve
+
+   ### Identifiants de Connexion 
+
+Utilisez ces identifiants pour accéder à l'application :
+
+- **Email** : `yassifradwa@gmail.com`  
+- **Mot de passe** : `Radway123`
+  
 ## 3. Fonctionnalités Principales
 
 Cette section détaille les Fonctionnalités développées pour la gestion des **leads**, **clients** et **prestations**.
