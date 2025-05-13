@@ -97,27 +97,31 @@ export default function CustomersIndex({ auth, customers }) {
                                         >
                                             {customer.name}
                                         </Link>
-                                    </td>                                    <td className="py-2 px-4 border border-gray-200">{customer.email}</td>
+                                    </td>
+                                    <td className="py-2 px-4 border border-gray-200">{customer.email}</td>
                                     <td className="py-2 px-4 border border-gray-200">{customer.phone}</td>
                                     <td className="py-2 px-4 border border-gray-200">{customer.address}</td>
                                     <td className="py-2 px-4 border border-gray-200">{customer.city}</td>
                                     <td className="py-2 px-4 border border-gray-200">{customer.country}</td>
-                                    <td className="py-2 px-4 border border-gray-200 flex justify-center gap-2">
-                                        <Manage
-                                            trigger={
-                                                <Button variant="outline" className="text-[#60AFA8] border-[#60AFA8] hover:bg-[#60AFA8] hover:text-white">
-                                                    Modifier
-                                                </Button>
-                                            }
-                                            customer={customer}
-                                        />
-                                        <Button
-                                            variant="outline"
-                                            className="text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
-                                            onClick={() => deleteCustomer(customer.id)} // Ici, on utilise la fonction deleteCustomer
-                                        >
-                                            Supprimer
-                                        </Button>
+                                    <td className="py-2 px-4 border border-gray-200 text-center">
+                                        <div className="flex justify-center gap-2">
+                                            <Manage
+                                                trigger={
+                                                    <Button variant="outline"
+                                                            className="text-[#60AFA8] border-[#60AFA8] hover:bg-[#60AFA8] hover:text-white">
+                                                        Modifier
+                                                    </Button>
+                                                }
+                                                customer={customer}
+                                            />
+                                            <Button
+                                                variant="outline"
+                                                className="text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
+                                                onClick={() => deleteCustomer(customer.id)}
+                                            >
+                                                Supprimer
+                                            </Button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))

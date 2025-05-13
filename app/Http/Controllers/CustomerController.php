@@ -42,13 +42,12 @@ class CustomerController extends Controller
         $customer->zip = $request->zip;
         $customer->city = $request->city;
         $customer->country = $request->country;
-        $customer->acces=$request->acces;
         $customer->save();
         if($request->get('lead_id')) {
             $lead = Lead::find($request->get('lead_id'));
             $lead->update(['customer_id' => $customer->id]);
         }
-        return redirect()->route('customers.index')->with('success', 'Customer created successfully');
+        return redirect()->route('customers.index');
 
 
     }
@@ -61,7 +60,7 @@ class CustomerController extends Controller
         $companies = \App\Models\Company::all(); // Récupérer toutes les entreprises
 
         return Inertia::render('Customer/Show', [
-            'customer'  => $customer->load('leads', 'notes', 'prestations'), // Charger les relations nécessaires
+            'customer'  => $customer->load(['leads', 'notes', 'prestations.company']),
             'companies' => $companies, // Ajouter les entreprises aux props
         ]);
     }
@@ -87,14 +86,10 @@ class CustomerController extends Controller
             'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:100',
             'country' => 'nullable|string|max:100',
-            'acces' => 'nullable|string|max:255',
         ]);
         $customer = Customer::find($id);
-        if (!$customer) {
-            return response()->json(['error' => 'Client non trouvé'], 404);
-        }
         $customer->update($validatedData);
-        return redirect()->route('customers.index')->with('success', 'Customer updated successfully');
+        return redirect()->route('customers.index');
 
     }
 
@@ -106,6 +101,6 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         $customer->delete();
-        return redirect()->route('customers.index')->with('success', 'Customer deleted successfully');
+        return redirect()->route('customers.index');
     }
 }

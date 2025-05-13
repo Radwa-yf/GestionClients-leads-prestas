@@ -100,10 +100,6 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <UsersIcon className="w-6 h-6" />
                                     <span>Customers</span>
                                 </Link>
-                                <Link href="/options" onClick={handleLinkClick} className="flex items-center space-x-4 text-white text-lg">
-                                    <SettingsIcon className="w-6 h-6" />
-                                    <span>Options</span>
-                                </Link>
 
                                 {/* Dropdown Profil et Log Out */}
                                 <div className="mt-4">

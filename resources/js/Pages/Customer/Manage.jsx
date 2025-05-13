@@ -44,7 +44,6 @@ export default function Manage({ customer, lead, trigger }) {
         city: customer?.city || '',
         country: customer?.country || '',
         lead_id: lead?.id || '',
-        acces: customer?.acces || '',
     });
     const submit = (e) => {
         e.preventDefault();
@@ -170,16 +169,6 @@ export default function Manage({ customer, lead, trigger }) {
                                 </SelectContent>
                             </Select>
                             <InputError className="mt-2" message={errors.city}/>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2 items-center">
-                            <Label htmlFor="access">Accès</Label>
-                            <Input
-                                value={data.acces}
-                                onChange={(e) => setData('acces', e.target.value)}
-                                id="access"
-                                placeholder="Entrez l'accès"
-                            />
-                            <InputError className="mt-2" message={errors.acces}/>
                         </div>
                     </div>
                     <DialogFooter>

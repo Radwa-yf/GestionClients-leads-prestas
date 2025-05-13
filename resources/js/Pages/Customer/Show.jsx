@@ -9,11 +9,14 @@ import {PlusIcon} from "lucide-react";
 export default function CustomerShow({ auth, customer }) {
     const { companies } = usePage().props;
 
-    const deleteCustomer = () => {
-        if (!window.confirm("Êtes-vous sûr de vouloir supprimer ce client ?")) return;
-        router.delete(route('customers.destroy', customer.id), {
-            onSuccess: () => alert('Client supprimé avec succès'),
-            onError: () => alert("Une erreur est survenue."),
+    const deletePrestation = (prestationId) => {
+        if (!window.confirm("Êtes-vous sûr de vouloir supprimer cette prestation ?")) return;
+        router.delete(route('customers.services.destroy', {
+            customer: customer.id,
+            prestation: prestationId
+        }), {
+            onSuccess: () => alert('Prestation supprimée avec succès'),
+            onError: () => alert("Une erreur est survenue lors de la suppression de la prestation."),
         });
     };
     const handleAddPrestation = () => {
@@ -75,6 +78,70 @@ export default function CustomerShow({ auth, customer }) {
                         customer={customer}
                     />
                 </div>
+                <div className="mt-10">
+                    <h2 className="text-2xl font-bold text-[#60AFA8] mb-6">Prestations</h2>
+
+                    {customer.prestations.length > 0 ? (
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full table-auto border-collapse">
+                                <thead>
+                                <tr>
+                                    <th className="py-2 px-4 border border-gray-200 bg-gray-100 text-left">Type</th>
+                                    <th className="py-2 px-4 border border-gray-200 bg-gray-100 text-left">Entreprise</th>
+                                    <th className="py-2 px-4 border border-gray-200 bg-gray-100 text-left">Sites</th>
+                                    <th className="py-2 px-4 border border-gray-200 bg-gray-100 text-left">Prix (€)</th>
+                                    <th className="py-2 px-4 border border-gray-200 bg-gray-100 text-left">Durée
+                                        Abonnement
+                                    </th>
+                                    <th className="py-2 px-4 border border-gray-200 bg-gray-100 text-left">Récurrence</th>
+                                    <th className="py-2 px-4 border border-gray-200 bg-gray-100 text-left">Mots-clés</th>
+                                    <th className="py-2 px-4 border border-gray-200 bg-gray-100 text-left">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {customer.prestations.map((prestation) => (
+                                    <tr key={prestation.id} className="hover:bg-gray-50">
+                                        <td className="py-2 px-4 border border-gray-200">{prestation.type}</td>
+                                        <td className="py-2 px-4 border border-gray-200">{prestation.company?.name || '—'}</td>
+                                        <td className="py-2 px-4 border border-gray-200">{prestation.sites || '—'}</td>
+                                        <td className="py-2 px-4 border border-gray-200">{prestation.price}</td>
+                                        <td className="py-2 px-4 border border-gray-200">{prestation.abonnement_duration || '—'}</td>
+                                        <td className="py-2 px-4 border border-gray-200">{prestation.recurrence || '—'}</td>
+                                        <td className="py-2 px-4 border border-gray-200">{prestation.keywords || '—'}</td>
+                                        <td className="py-2 px-4 border border-gray-200 text-center">
+                                            <div className="flex items-center justify-center gap-2">
+                                                <ManagePrestation
+                                                    trigger={
+                                                        <Button
+                                                            variant="outline"
+                                                            className="border border-[#60AFA8] text-[#60AFA8] hover:bg-[#60AFA8] hover:text-white text-sm h-8 px-3"
+                                                        >
+                                                            Modifier
+                                                        </Button>
+                                                    }
+                                                    companies={companies}
+                                                    customer={customer}
+                                                    prestation={prestation}
+                                                />
+                                                <Button
+                                                    variant="outline"
+                                                    className="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white text-sm h-8 px-3"
+                                                    onClick={() => deletePrestation(prestation.id)}
+                                                >
+                                                    Supprimer
+                                                </Button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <p className="text-gray-600 italic">Aucune prestation associée à ce client.</p>
+                    )}
+                </div>
+
 
                 {/* Intégration de la gestion des notes */}
                 <div className="mt-6">

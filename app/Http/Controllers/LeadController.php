@@ -83,6 +83,8 @@ class LeadController extends Controller
             'source' => 'required|string|max:255',
             'company_id' => 'required|exists:company,id',
             'status' => 'required|string|in:new,no-response,waiting',
+            'sites' => 'nullable|string|max:1000',
+            'project' => 'nullable|string|max:10000',
         ]);
 
         $lead->update($validated);

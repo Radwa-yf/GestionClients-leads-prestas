@@ -11,8 +11,7 @@ class Prestation extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'prestation_uuid','company_id', 'customer_id', 'type','sites', 'price', 'payment_link',
-        'file_url','status', 'abonnement_duration','acces','keywords', 'recurrence',    'payment_mode',
+        'company_id', 'customer_id', 'type','sites', 'price','abonnement_duration','keywords', 'recurrence',
 
     ];
 

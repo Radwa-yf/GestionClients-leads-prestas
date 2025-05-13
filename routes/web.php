@@ -37,14 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/customer/{customer}/services/create', [PrestationController::class, 'create'])->name('customers.services.create');
     Route::post('/customer/{customer}/services', [PrestationController::class, 'store'])->name('customers.services.store');
     Route::get('/customer/{customer}/services/{prestation}/edit', [PrestationController::class, 'edit'])->name('customers.services.edit');
-    Route::get('/customer/{customer}/services/{prestation}/download', [PrestationController::class, 'download'])->name('customers.services.download');
     Route::put('/customer/{customer}/services/{prestation}', [PrestationController::class, 'update'])->name('customers.services.update');
     Route::delete('/customer/{customer}/services/{prestation}', [PrestationController::class, 'destroy'])->name('customers.services.destroy');
-    Route::post('/create-payment-link', [PrestationController::class, 'createPaymentLink'])->name('payment.createLink');
 
-
-    Route::resource('option', OptionController::class);
-    Route::resource('magicfitsignature', MagicfitSignatureController::class);
 });
 
 

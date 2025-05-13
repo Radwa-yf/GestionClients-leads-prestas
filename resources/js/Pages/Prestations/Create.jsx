@@ -13,23 +13,21 @@ import { Label } from "@/Components/ui/label";
 import { Button } from "@/Components/ui/button";
 import InputError from "@/Components/InputError";
 
-export default function ManagePrestation({ trigger, companies = [] , customer }) {
+export default function ManagePrestation({ trigger, companies = [], customer, prestation = null }) {
     console.log("Companies:", companies);
     console.log('Customer:', customer);
 
 
 
     const [open, setOpen] = useState(false);
-    const { data, setData, post, errors, processing } = useForm({
-        company_id: '',
-        type: '',
-        sites: '',
-        price: '',
-        abonnement_duration: '',
-        acces: '',
-        keywords: '',
-        recurrence: '',
-        payment_mode: 'one_time',
+    const { data, setData, post, put, errors, processing } = useForm({
+        company_id: prestation?.company_id || '',
+        type: prestation?.type || '',
+        sites: prestation?.sites || '',
+        price: prestation?.price || '',
+        abonnement_duration: prestation?.abonnement_duration || '',
+        keywords: prestation?.keywords || '',
+        recurrence: prestation?.recurrence || '',
     });
 
     const prestationTypesByCompany = {
@@ -46,18 +44,26 @@ export default function ManagePrestation({ trigger, companies = [] , customer })
             return;
         }
 
-        post(route('customers.services.store', { customer: customer.id }), {
+        const routeName = prestation
+            ? route('customers.services.update', {
+                customer: prestation.customer_id,
+                prestation: prestation.id
+            })
+            : route('customers.services.store', { customer: customer.id });
+
+        const method = prestation ? put : post;
+
+        method(routeName, {
             onSuccess: () => setOpen(false),
-            onError: () => console.log('Error during submission'),
+            onError: () => console.log('Erreur lors de la soumission'),
         });
     };
-
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>{trigger}</DialogTrigger>
             <DialogContent className="sm:max-w-[600px]">
                 <DialogHeader>
-                    <DialogTitle>Créer une Prestation</DialogTitle>
+                    <DialogTitle>{prestation ? "Modifier la Prestation" : "Créer une Prestation"}</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={submit}>
                     <div className="grid gap-4 py-4">
@@ -138,21 +144,6 @@ export default function ManagePrestation({ trigger, companies = [] , customer })
                             />
                             <InputError message={errors.price}/>
                         </div>
-                        <div>
-                            <label htmlFor="payment_mode">Mode de paiement</label>
-                            <select
-                                name="payment_mode"
-                                id="payment_mode"
-                                value={data.payment_mode}
-                                onChange={(e) => setData('payment_mode', e.target.value)}
-                                className="border rounded p-2 w-full"
-                            >
-                                <option value="one_time">Paiement unique</option>
-                                <option value="subscription">Abonnement</option>
-                            </select>
-                        </div>
-
-
                         {/* Durée */}
                         <div>
                             <Label htmlFor="duration">Durée (en mois) (facultatif)</Label>
@@ -164,19 +155,6 @@ export default function ManagePrestation({ trigger, companies = [] , customer })
                                 onChange={(e) => setData('abonnement_duration', e.target.value)}
                             />
                             <InputError message={errors.abonnement_duration}/>
-                        </div>
-
-                        {/* Accès */}
-                        <div>
-                            <Label htmlFor="acces">Accès (identifiant WordPress / hébergement)</Label>
-                            <Input
-                                id="acces"
-                                type="text"
-                                placeholder="Entrez l'identifiant"
-                                value={data.acces}
-                                onChange={(e) => setData('acces', e.target.value)}
-                            />
-                            <InputError message={errors.acces}/>
                         </div>
 
                         {/* Champs spécifiques à Azerto */}
@@ -210,10 +188,9 @@ export default function ManagePrestation({ trigger, companies = [] , customer })
                             </>
                         )}
                     </div>
-
                     <DialogFooter>
                         <Button type="submit" disabled={processing}>
-                            Créer la Prestation
+                            {prestation ? "Mettre à jour" : "Créer"} la Prestation
                         </Button>
                     </DialogFooter>
                 </form>

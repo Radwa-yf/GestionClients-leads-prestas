@@ -65,11 +65,6 @@ export const AppSidebar = () => {
                             <UsersIcon className="h-5 w-5 mr-3" /> Customers
                         </Link>
                     </li>
-                    <li>
-                        <Link href={route('option.index')} className="flex items-center p-2 hover:bg-gray-200 hover:text-gray-800 rounded-lg">
-                            <SettingsIcon className="h-5 w-5 mr-3" /> Options
-                        </Link>
-                    </li>
                 </ul>
             </nav>
         </Sidebar>
