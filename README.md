@@ -1,70 +1,148 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📊 Application de Gestion des Leads, Clients et Prestations – Qwenty, Hostay, Azerto
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 1. Introduction
 
-## About Laravel
+Ce projet est une application web interne développée au sein de notre entreprise regroupant trois entités : **Qwenty**, **Hostay** et **Azerto**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+L'objectif principal de cette application est de centraliser les données des **leads**, des **clients** et des **prestations**, et de faciliter leur gestion quotidienne.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+L’application est développée avec :
+- **Laravel** pour le backend
+- **React.js** (via Inertia) pour le frontend
+- **MySQL** pour la base de données
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 2. Prérequis Avant Démarrage
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 2.1. Environnement requis
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 8.1 ou plus
+- Composer
+- Node.js + npm
+- MySQL
+- Git
 
-## Laravel Sponsors
+### 2.2. Étapes d'installation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### - Installer les dépendances PHP
+   composer install
 
-### Premium Partners
+#### - Installer les dépendances JavaScript
+   npm install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### - Copier le fichier d’environnement
+   cp .env.example .env
 
-## Contributing
+#### - Générer la clé d'application
+   php artisan key:generate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### - Configurer votre base de données
+#### Ouvrir le fichier `.env` et modifier :
+ - DB_DATABASE=nom_de_votre_base
+ - DB_USERNAME=utilisateur
+ - DB_PASSWORD=motdepasse
 
-## Code of Conduct
+#### - Importer le fichier SQL fourni 
+    (via phpMyAdmin)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### - Compiler les assets
+   npm run dev
 
-## Security Vulnerabilities
+#### - Démarrer le serveur local Laravel
+   php artisan serve
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   ### Identifiants de Connexion 
 
-## License
+Utilisez ces identifiants pour accéder à l'application :
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# GestionClients-leads-prestas
->>>>>>> 7188ac993fb4676f0c27600b8455229bce8e3d38
+- **Email** : `yassifradwa@gmail.com`  
+- **Mot de passe** : `Radway123`
+  
+## 3. Fonctionnalités Principales
+
+Cette section détaille les Fonctionnalités développées pour la gestion des **leads**, **clients** et **prestations**.
+
+
+
+### 3.1. Gestion Lead 
+
+- Un **bouton d’ajout** est présent en haut de page, permettant d’ouvrir un **formulaire de création** d’un nouveau lead.
+- L'affichage principal est une **interface en colonnes**, chaque colonne représentant un **statut de lead** :
+  - `À traiter`, `Pas encore de réponse`, `En attente de closing`, etc.
+- Chaque colonne contient des **cartes individuelles** représentant un lead :
+  - La carte affiche :
+    - **Nom**
+    - **Email**
+    - **Numéro de téléphone**
+    - **Projet**
+    - **Valeur potentielle...** (si renseignée)
+- En haut à droite de chaque carte, une **flèche** ouvre un **menu déroulant** avec les options suivantes :
+  - **Gestion des notes** :
+    - Ajouter une note
+    - Modifier une note
+    - Supprimer une note
+  - **Valeur potentielle** :
+    - Ajouter un montant
+    - Modifier ce montant
+    - Le montant est ensuite affiché en haut de la carte
+  - **Changement de statut** :
+    - Déplacement de la carte vers une autre colonne
+  - **Conversion en client** :
+    - Ouvre un **formulaire client pré-rempli**
+    - Une fois validé, le lead devient un client
+  - **Marquer comme perdu** :
+    - Supprime la carte de l’interface
+  - **Modifier les informations** :
+    - Ouvre un formulaire de modification (nom, entreprise, email, etc.)
+
+
+
+### 3.2. Gestion Client 
+
+- En haut de page, un **bouton "Ajouter un client"** permet d’ouvrir un **formulaire complet** :
+  - Champs :nom, téléphone, pays, etc.
+- Une fois créés, les clients sont listés dans un **tableau** :
+  - Informations affichées :
+    - Nom
+    - Téléphone
+    - Pays etc
+  - Actions disponibles pour chaque ligne :
+    - **Modifier** (ouvre une modal avec le formulaire)
+    - **Supprimer** (avec confirmation)
+- Le **nom du client est cliquable** :
+  - Dirige vers une **fiche client détaillée**
+  - Affiche les **informations personnelles du client**
+  - Si le client est issu d’un lead, les données sont conservées
+
+#### Détails sur la fiche client :
+- Bouton **"Ajouter une prestation"** liée à ce client
+- **Tableau des prestations** rattachées :
+  - Nom, type, statut etc 
+  - Boutons pour modifier ou supprimer
+- **Section notes** :
+  - Gestion complète : ajout, modification, suppression
+
+> Cette interface centralise toutes les actions et données relatives à un client.
+
+
+
+### 3.3. Interface Prestations (Frontend)
+
+> Cette interface est intégrée dans la **fiche client**.
+
+- L’ajout d’une prestation se fait via un **formulaire dynamique** :
+  - Déclenché par un bouton
+  - Champs dépendants de l’entité choisie :
+    - Par exemple, pour `Azerto` :
+      - Mots-clés
+      - Récurrence etc.
+- Les prestations sont listées dans un **tableau interactif** :
+  -type, statut
+  - Actions : modifier / supprimer
+- Chaque prestation est **liée exclusivement à un client** :
+  - Accessible uniquement via la fiche client concernée
+
+> L’interface est optimisée pour la saisie rapide et le suivi des prestations par client.
+
+
