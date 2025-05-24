@@ -43,7 +43,7 @@ L’application est développée avec :
  - DB_USERNAME=utilisateur
  - DB_PASSWORD=motdepasse
 
-#### - Importer le fichier SQL fourni 
+#### - Importer le fichier SQL fourni (clients-leads-prestas.dump)
     (via phpMyAdmin)
 
 #### - Compiler les assets
